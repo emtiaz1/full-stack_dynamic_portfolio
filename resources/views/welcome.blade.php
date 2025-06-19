@@ -26,7 +26,7 @@
         </div>
         <div class="welcome">
     <h2 id="welcome">Welcome to My Portfolio!</h2>
-    <div id="intro">    
+    <div class="intro" id="intro">    
     <p>
         Hi there! 👋
         I'm Emtiaz Ahmed, and I'm excited to share my work with you. This portfolio showcases the projects, skills, and ideas I've developed over time — from web development and programming to research and innovation.

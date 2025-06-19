@@ -64,6 +64,10 @@ justify-content: space-between;
     width: 300px;
     height: 300px;
 }
+.intro p{
+    display: flex;
+    text-align: justify;
+}
 .btn{
     background-color: black;
     color: white;
