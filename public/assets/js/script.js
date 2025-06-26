@@ -1,16 +1,17 @@
-menu= document.querySelector('.menu').children;
-for (let i = 0; i < menu.length; i++) {
-    menu[i].addEventListener('click', function(event) {
-        alert(event.target.innerText);
-    });
+function updateClock() {
+    const now = new Date();
+    let hours = now.getHours();
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+
+    const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
+    document.getElementById('clock').textContent = timeString;
 }
 
-btn= document.getElementById('contact-button');
-btn.addEventListener('click', function() {
-    intro= document.getElementById('intro');
-    btn.style.display = "none";
-    welcome= document.getElementById('welcome');
-    welcome.style.display = "none";
-    intro.innerText = "Thanks you for contacting!";
-    intro.classList.add('contacting');
-});
+updateClock();
+setInterval(updateClock, 1000);
+
+
