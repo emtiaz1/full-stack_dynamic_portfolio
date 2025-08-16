@@ -150,56 +150,24 @@
         </div>
 
         <div class="timeline m-3">
-            <!-- SSC -->
-            <div class="timeline-item left">
-                <div class="edu-content">
-                    <span class="edu-year">2018</span>
-                    <h3 class="edu-degree">Secondary School Certificate (SSC)</h3>
-                    <p class="edu-school">Mawna ML High School</p>
-                    <p class="edu-gpa">GPA: <span>5.00</span></p>
+            @if(isset($educations) && count($educations))
+                @foreach($educations as $i => $edu)
+                    <div class="timeline-item {{ $i % 2 == 0 ? 'left' : 'right' }}">
+                        <div class="edu-content">
+                            <span class="edu-year">{{ $edu->year }}</span>
+                            <h3 class="edu-degree">{{ $edu->name }}</h3>
+                            <p class="edu-school">{{ $edu->institute }}</p>
+                            <p class="edu-gpa">GPA: <span>{{ $edu->grade }}</span></p>
+                        </div>
+                    </div>
+                @endforeach
+            @else
+                <div class="timeline-item left">
+                    <div class="edu-content">
+                        <h4>No education records found.</h4>
+                    </div>
                 </div>
-            </div>
-
-            <!-- HSC -->
-            <div class="timeline-item right">
-                <div class="edu-content">
-                    <span class="edu-year">2020</span>
-                    <h3 class="edu-degree">Higher Secondary Certificate (HSC)</h3>
-                    <p class="edu-school">Gazipur Cantonment College</p>
-                    <p class="edu-gpa">GPA: <span>5.00</span></p>
-                </div>
-            </div>
-
-            <!-- University -->
-            <div class="timeline-item left">
-                <div class="edu-content">
-                    <span class="edu-year">2024 - Present</span>
-                    <h3 class="edu-degree">Bachelor of Science in Computer Science and Engineering</h3>
-                    <p class="edu-school">Daffodil International University</p>
-                    <p>Currently a <strong>fourth-year student</strong> actively engaged in learning and development.</p>
-                </div>
-            </div>
-            <!-- certificate -->
-            <div class="timeline-item right">
-                <div class="edu-content">
-                    <h4>Certificates</h4>
-                    <ul>
-                        <li>Web Development Bootcamp - <i class="bi bi-check-circle-fill text-success"></i></li>
-                        <li>Data Science and Machine Learning - <i class="bi bi-check-circle-fill text-success"></i></li>
-                        <li>Graphic Design Basics - <i class="bi bi-check-circle-fill text-success"></i></li>
-                    </ul>
-                </div>
-            </div>
-            <!-- honors and awards -->
-            <div class="timeline-item left">
-                <div class="edu-content">
-                    <h4>Honors & Awards</h4>
-                    <ul>
-                        <li>Dean's List - Daffodil International University</li>
-                        <li>Best Project Award - Web Development Bootcamp</li>
-                    </ul>
-                </div>
-            </div>
+            @endif
         </div>
     </div>
 @endsection

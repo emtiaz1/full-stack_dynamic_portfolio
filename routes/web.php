@@ -69,12 +69,27 @@ Route::prefix('admin')->group(function () {
         return app(AboutController::class)->update(request());
     })->name('admin.about.update');
 
+
     Route::post('/education/store', function () {
         if (!session('admin_logged_in')) {
             return redirect()->route('admin.login')->with('error', 'Please login to access admin area.');
         }
         return app(EducationController::class)->store(request());
     })->name('admin.education.store');
+
+    Route::get('/education/{id}/edit', function ($id) {
+        if (!session('admin_logged_in')) {
+            return redirect()->route('admin.login')->with('error', 'Please login to access admin area.');
+        }
+        return app(EducationController::class)->edit($id);
+    })->name('admin.education.edit');
+
+    Route::delete('/education/{id}/delete', function ($id) {
+        if (!session('admin_logged_in')) {
+            return redirect()->route('admin.login')->with('error', 'Please login to access admin area.');
+        }
+        return app(EducationController::class)->destroy($id);
+    })->name('admin.education.delete');
 
     Route::post('/skills/store', function () {
         if (!session('admin_logged_in')) {
@@ -106,8 +121,10 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
+use App\Models\Education;
 Route::get('/education', function () {
-    return view('education');
+    $educations = Education::orderBy('year', 'desc')->get();
+    return view('education', compact('educations'));
 })->name('education');
 
 Route::get('/projects', function () {
