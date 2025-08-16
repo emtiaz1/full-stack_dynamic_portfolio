@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-gray-100">
     <div class="flex h-screen">
         <!-- Sidebar -->
@@ -17,6 +19,8 @@
                 <a href="{{ route('admin.skills') }}" class="hover:bg-gray-700 p-2 rounded">Skills</a>
                 <a href="{{ route('admin.projects') }}" class="hover:bg-gray-700 p-2 rounded">Projects</a>
                 <a href="{{ route('admin.contact') }}" class="hover:bg-gray-700 p-2 rounded">Contact →</a>
+                <a href="{{ route('admin.logout') }}"
+                    class="mt-8 bg-red-600 hover:bg-red-700 p-2 rounded text-center font-semibold">Logout</a>
             </nav>
         </aside>
         <!-- Main Content -->
@@ -25,4 +29,5 @@
         </main>
     </div>
 </body>
+
 </html>
