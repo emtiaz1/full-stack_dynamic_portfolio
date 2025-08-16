@@ -192,6 +192,12 @@
 @endpush
 
 @section('main-content')
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show mt-3 mx-auto" role="alert" style="max-width:600px;">
+            <strong>{{ session('success') }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <div class="contact-header">
         <div class="shapes">
             <div class="shape shape-1"></div>
@@ -203,7 +209,7 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container mb-4">
         <div class="row g-4">
             <div class="col-lg-5">
                 <div class="contact-card h-100">
@@ -215,7 +221,7 @@
                             </div>
                             <div>
                                 <h5>Address</h5>
-                                <p>Dhaka, Bangladesh</p>
+                                <p>{{ $contact->address ?? 'N/A' }}</p>
                             </div>
                         </div>
                         <div class="info-item">
@@ -224,7 +230,7 @@
                             </div>
                             <div>
                                 <h5>Email</h5>
-                                <p>emtiaz@example.com</p>
+                                <p>{{ $contact->email ?? 'N/A' }}</p>
                             </div>
                         </div>
                         <div class="info-item">
@@ -233,14 +239,26 @@
                             </div>
                             <div>
                                 <h5>Phone</h5>
-                                <p>+880 1234 567890</p>
+                                <p>{{ $contact->phone ?? 'N/A' }}</p>
                             </div>
                         </div>
-                        <div class="social-links">
-                            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                        <div class="social-links text-center align-items-center">
+                            @if(!empty($contact->facebook))
+                                <a href="{{ $contact->facebook }}" class="social-icon" target="_blank"
+                                    style="text-decoration: none;"><i class="fab fa-facebook-f"></i></a>
+                            @endif
+                            @if(!empty($contact->x))
+                                <a href="{{ $contact->x }}" class="social-icon" target="_blank"
+                                    style="text-decoration: none;"><i class="fab fa-twitter"></i></a>
+                            @endif
+                            @if(!empty($contact->linkedin))
+                                <a href="{{ $contact->linkedin }}" class="social-icon" target="_blank"
+                                    style="text-decoration: none;"><i class="fab fa-linkedin-in"></i></a>
+                            @endif
+                            @if(!empty($contact->github))
+                                <a href="{{ $contact->github }}" class="social-icon" target="_blank"
+                                    style="text-decoration: none;"><i class="fab fa-github"></i></a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -249,17 +267,19 @@
                 <div class="contact-card">
                     <div class="contact-form">
                         <h3>Send Me a Message</h3>
-                        <form>
+                        <form action="{{ route('contact.message') }}" method="POST">
+                            @csrf
                             <div class="row">
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="Your Name" required>
+                                    <input type="text" name="name" class="form-control" placeholder="Your Name" required>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="email" class="form-control" placeholder="Your Email" required>
+                                    <input type="email" name="mail" class="form-control" placeholder="Your Email" required>
                                 </div>
                             </div>
-                            <input type="text" class="form-control" placeholder="Subject">
-                            <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                            <input type="text" name="subj" class="form-control" placeholder="Subject">
+                            <textarea name="message" class="form-control" rows="5" placeholder="Your Message"
+                                required></textarea>
                             <button type="submit" class="submit-btn">
                                 <i class="far fa-paper-plane me-2"></i>Send Message
                             </button>
@@ -267,12 +287,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="map-container">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d233667.8223908687!2d90.27923710646989!3d23.780887457084543!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8b087026b81%3A0x8fa563bbdd5904c2!2sDhaka!5e0!3m2!1sen!2sbd!4v1628632605190!5m2!1sen!2sbd"
-                allowfullscreen="" loading="lazy"></iframe>
         </div>
     </div>
 

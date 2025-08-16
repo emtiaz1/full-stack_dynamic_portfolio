@@ -9,12 +9,15 @@ class ContactController extends Controller
 {
     public function index()
     {
-        return view('admin.contact');
+        $contact = \App\Models\Contact::first();
+        return view('admin.contact', compact('contact'));
     }
 
     public function store(Request $request)
     {
-        // Validation and store logic here
-        return back()->with('success', 'Message sent successfully!');
+        $data = $request->only(['address', 'email', 'phone', 'facebook', 'github', 'x', 'linkedin']);
+        \App\Models\Contact::truncate();
+        \App\Models\Contact::create($data);
+        return back()->with('success', 'Contact information updated!');
     }
 }

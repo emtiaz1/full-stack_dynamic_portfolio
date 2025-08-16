@@ -193,7 +193,7 @@
                             href="{{ url('/projects') }}">Projects</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link contact-btn {{ Request::is('contact') ? 'active' : '' }}"
+                        <a class="nav-link contact-btn {{ Request::is('contact')}}"
                             href="{{ url('/contact') }}">
                             Contact <i class="fas fa-arrow-right ms-1"></i>
                         </a>

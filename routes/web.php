@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\EducationController;
 use App\Http\Controllers\Admin\SkillsController;
 use App\Http\Controllers\Admin\ProjectsController;
 use App\Http\Controllers\Admin\ContactController;
+use App\Http\Controllers\Admin\MessagesController;
+
 
 
 // Admin Routes (Protected by session)
@@ -61,6 +63,12 @@ Route::prefix('admin')->group(function () {
         return app(ContactController::class)->index();
     })->name('admin.contact');
 
+    Route::post('/contact', [ContactController::class, 'store'])->name('admin.contact.store');
+
+    // Messages Routes
+    Route::get('/messages', [MessagesController::class, 'index'])->name('admin.messages');
+    Route::delete('/messages/{id}', [MessagesController::class, 'destroy'])->name('admin.messages.delete');
+
     // Update Routes
     Route::post('/about/update', function () {
         if (!session('admin_logged_in')) {
@@ -104,8 +112,10 @@ Route::get('/about', function () {
     return view('about', compact('about'));
 })->name('about');
 
+use App\Models\Contact;
 Route::get('/contact', function () {
-    return view('contact');
+    $contact = Contact::first();
+    return view('contact', compact('contact'));
 })->name('contact');
 
 use App\Models\Education;
@@ -114,8 +124,10 @@ Route::get('/education', function () {
     return view('education', compact('educations'));
 })->name('education');
 
+use App\Models\Project;
 Route::get('/projects', function () {
-    return view('projects');
+    $projects = Project::orderBy('id', 'desc')->get();
+    return view('projects', compact('projects'));
 })->name('projects');
 
 use App\Models\Skill;
@@ -124,6 +136,8 @@ Route::get('/skills', function () {
     return view('skills', compact('skills'));
 })->name('skills');
 
+// Public POST route for contact form messages
+Route::post('/contact/message', [MessagesController::class, 'store'])->name('contact.message');
 
 // Google Authentication Routes
 Route::get('auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google.login');

@@ -1,24 +1,42 @@
 @extends('admin.dashboard')
 
 @section('content')
-<div class="bg-white p-6 rounded-lg shadow-lg">
-    <h1 class="text-2xl font-bold mb-6">Contact Messages</h1>
-    
-    <div class="overflow-x-auto">
-        <table class="min-w-full bg-white">
-            <thead>
-                <tr>
-                    <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-500 uppercase tracking-wider">Name</th>
-                    <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-500 uppercase tracking-wider">Email</th>
-                    <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-500 uppercase tracking-wider">Message</th>
-                    <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-500 uppercase tracking-wider">Date</th>
-                    <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-500 uppercase tracking-wider">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Add your contact messages loop here -->
-            </tbody>
-        </table>
+    <div class="container bg-white p-4 rounded shadow">
+        <h1 class="h3 mb-4">Edit Contact Information</h1>
+        <form action="{{ route('admin.contact.store') }}" method="POST">
+            @csrf
+            <div class="mb-3">
+                <label class="form-label">Address</label>
+                <input type="text" name="address" class="form-control"
+                    value="{{ old('address', $contact->address ?? '') }}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" name="email" class="form-control" value="{{ old('email', $contact->email ?? '') }}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Phone</label>
+                <input type="text" name="phone" class="form-control" value="{{ old('phone', $contact->phone ?? '') }}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Facebook</label>
+                <input type="text" name="facebook" class="form-control"
+                    value="{{ old('facebook', $contact->facebook ?? '') }}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">GitHub</label>
+                <input type="text" name="github" class="form-control" value="{{ old('github', $contact->github ?? '') }}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">X (Twitter)</label>
+                <input type="text" name="x" class="form-control" value="{{ old('x', $contact->x ?? '') }}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">LinkedIn</label>
+                <input type="text" name="linkedin" class="form-control"
+                    value="{{ old('linkedin', $contact->linkedin ?? '') }}">
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
     </div>
-</div>
 @endsection

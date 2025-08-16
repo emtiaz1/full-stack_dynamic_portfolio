@@ -9,12 +9,26 @@ class ProjectsController extends Controller
 {
     public function index()
     {
-        return view('admin.projects');
+        $projects = \App\Models\Project::all();
+        return view('admin.projects', compact('projects'));
     }
 
     public function store(Request $request)
     {
-        // Validation and store logic here
-        return back()->with('success', 'Project added successfully!');
+        $projects = $request->input('projects', []);
+        \App\Models\Project::truncate();
+        foreach ($projects as $project) {
+            if (!empty($project['title']) || !empty($project['category'])) {
+                \App\Models\Project::create([
+                    'category' => $project['category'] ?? '',
+                    'title' => $project['title'] ?? '',
+                    'description' => $project['description'] ?? '',
+                    'tags' => isset($project['tags']) ? array_map('trim', explode(',', $project['tags'])) : [],
+                    'image' => $project['image'] ?? '',
+                    'githublink' => $project['githublink'] ?? '',
+                ]);
+            }
+        }
+        return back()->with('success', 'Projects updated successfully!');
     }
 }
