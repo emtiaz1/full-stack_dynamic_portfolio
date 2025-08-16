@@ -9,12 +9,24 @@ class SkillsController extends Controller
 {
     public function index()
     {
-        return view('admin.skills');
+        $skills = \App\Models\Skill::all();
+        return view('admin.skills', compact('skills'));
     }
 
     public function store(Request $request)
     {
-        // Validation and store logic here
-        return back()->with('success', 'Skill added successfully!');
+        $skills = $request->input('skills', []);
+        \App\Models\Skill::truncate();
+        foreach ($skills as $skill) {
+            if (!empty($skill['name']) || !empty($skill['proficiency'])) {
+                \App\Models\Skill::create([
+                    'name' => $skill['name'] ?? '',
+                    'description' => $skill['description'] ?? '',
+                    'logo' => $skill['logo'] ?? '',
+                    'proficiency' => $skill['proficiency'] ?? 0,
+                ]);
+            }
+        }
+        return back()->with('success', 'Skills updated successfully!');
     }
 }

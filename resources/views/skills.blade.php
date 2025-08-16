@@ -156,186 +156,37 @@
         </div>
     </div>
 
+
     <div class="skills-section">
         <div class="container">
-            <div class="skill-category">
-                <h2 class="category-title">Frontend Development</h2>
-                <div class="row g-4">
+            <div class="row g-4">
+                @forelse($skills as $skill)
                     <div class="col-md-4 col-sm-6">
                         <div class="skill-card">
                             <div class="skill-card-body text-center">
-                                <div class="skill-icon">
-                                    <i class="fab fa-html5"></i>
+                                <div class="skill-icon mb-2">
+                                    @if($skill->logo)
+                                        <img src="{{ $skill->logo }}" alt="{{ $skill->name }} logo"
+                                            style="max-width:48px;max-height:48px;object-fit:contain;" loading="lazy">
+                                    @else
+                                        <i class="fas fa-star"></i>
+                                    @endif
                                 </div>
-                                <h3 class="skill-name">HTML5</h3>
-                                <p>Semantic markup, accessibility, and modern web standards</p>
+                                <h3 class="skill-name">{{ $skill->name }}</h3>
+                                <p>{{ $skill->description }}</p>
                                 <div class="skill-level">
-                                    <span class="dot filled"></span>
-                                    <span class="dot filled"></span>
-                                    <span class="dot filled"></span>
-                                    <span class="dot filled"></span>
-                                    <span class="dot filled"></span>
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        <span class="dot{{ $i <= $skill->proficiency ? ' filled' : '' }}"></span>
+                                    @endfor
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="skill-card">
-                            <div class="skill-card-body text-center">
-                                <div class="skill-icon">
-                                    <i class="fab fa-css3-alt"></i>
-                                </div>
-                                <h3 class="skill-name">CSS3</h3>
-                                <p>Responsive design, animations, and modern layouts with flexbox and grid</p>
-                                <div class="skill-level">
-                                    <span class="dot filled"></span>
-                                    <span class="dot filled"></span>
-                                    <span class="dot filled"></span>
-                                    <span class="dot filled"></span>
-                                    <span class="dot"></span>
-                                </div>
-                            </div>
-                        </div>
+                @empty
+                    <div class="col-12">
+                        <p class="text-center">No skills found.</p>
                     </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="skill-card">
-                            <div class="skill-card-body text-center">
-                                <div class="skill-icon">
-                                    <i class="fab fa-js"></i>
-                                </div>
-                                <h3 class="skill-name">JavaScript</h3>
-                                <p>ES6+, DOM manipulation, async programming, and modern JS frameworks</p>
-                                <div class="skill-level">
-                                    <span class="dot filled"></span>
-                                    <span class="dot filled"></span>
-                                    <span class="dot filled"></span>
-                                    <span class="dot filled"></span>
-                                    <span class="dot"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="skill-category">
-                <h2 class="category-title">Backend Development</h2>
-                <div class="row g-4">
-                    <div class="col-md-4 col-sm-6">
-                        <div class="skill-card">
-                            <div class="skill-card-body text-center">
-                                <div class="skill-icon">
-                                    <i class="fab fa-php"></i>
-                                </div>
-                                <h3 class="skill-name">PHP</h3>
-                                <p>OOP, MVC architecture, and backend web development</p>
-                                <div class="skill-level">
-                                    <span class="dot filled"></span>
-                                    <span class="dot filled"></span>
-                                    <span class="dot filled"></span>
-                                    <span class="dot filled"></span>
-                                    <span class="dot"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="skill-card">
-                            <div class="skill-card-body text-center">
-                                <div class="skill-icon">
-                                    <i class="fab fa-laravel"></i>
-                                </div>
-                                <h3 class="skill-name">Laravel</h3>
-                                <p>Full-stack development with Laravel framework and its ecosystem</p>
-                                <div class="skill-level">
-                                    <span class="dot filled"></span>
-                                    <span class="dot filled"></span>
-                                    <span class="dot filled"></span>
-                                    <span class="dot"></span>
-                                    <span class="dot"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="skill-card">
-                            <div class="skill-card-body text-center">
-                                <div class="skill-icon">
-                                    <i class="fas fa-database"></i>
-                                </div>
-                                <h3 class="skill-name">MySQL</h3>
-                                <p>Database design, optimization, and advanced SQL queries</p>
-                                <div class="skill-level">
-                                    <span class="dot filled"></span>
-                                    <span class="dot filled"></span>
-                                    <span class="dot filled"></span>
-                                    <span class="dot"></span>
-                                    <span class="dot"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="skill-category">
-                <h2 class="category-title">Tools & Others</h2>
-                <div class="row g-4">
-                    <div class="col-md-4 col-sm-6">
-                        <div class="skill-card">
-                            <div class="skill-card-body text-center">
-                                <div class="skill-icon">
-                                    <i class="fab fa-git-alt"></i>
-                                </div>
-                                <h3 class="skill-name">Git</h3>
-                                <p>Version control, collaboration, and CI/CD workflows</p>
-                                <div class="skill-level">
-                                    <span class="dot filled"></span>
-                                    <span class="dot filled"></span>
-                                    <span class="dot filled"></span>
-                                    <span class="dot filled"></span>
-                                    <span class="dot"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="skill-card">
-                            <div class="skill-card-body text-center">
-                                <div class="skill-icon">
-                                    <i class="fas fa-mobile-alt"></i>
-                                </div>
-                                <h3 class="skill-name">Responsive Design</h3>
-                                <p>Creating mobile-first, adaptive websites for all devices</p>
-                                <div class="skill-level">
-                                    <span class="dot filled"></span>
-                                    <span class="dot filled"></span>
-                                    <span class="dot filled"></span>
-                                    <span class="dot filled"></span>
-                                    <span class="dot filled"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="skill-card">
-                            <div class="skill-card-body text-center">
-                                <div class="skill-icon">
-                                    <i class="fas fa-paint-brush"></i>
-                                </div>
-                                <h3 class="skill-name">UI/UX Design</h3>
-                                <p>Creating user-centered interfaces and engaging experiences</p>
-                                <div class="skill-level">
-                                    <span class="dot filled"></span>
-                                    <span class="dot filled"></span>
-                                    <span class="dot filled"></span>
-                                    <span class="dot"></span>
-                                    <span class="dot"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforelse
             </div>
         </div>
     </div>

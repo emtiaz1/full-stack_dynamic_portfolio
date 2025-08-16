@@ -4,26 +4,21 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
-public function up()
-{
-    Schema::create('skills', function (Blueprint $table) {
-        $table->id();
-                $table->unsignedBigInteger('user_id');
-                 $table->string('name');
-        $table->enum('type', ['technical', 'soft']);
-        $table->enum('level', ['beginner', 'intermediate', 'expert']);
-        $table->string('logo')->nullable();
-        $table->timestamps();
-    });
-            Schema::table('skills', function (Blueprint $table){
-        $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-    });
-}
+    public function up()
+    {
+        Schema::create('skills', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->string('logo')->nullable(); // Image web address for skill logo
+            $table->integer('proficiency')->default(0);
+            $table->timestamps();
+        });
+    }
 
 
     /**

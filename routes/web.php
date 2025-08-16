@@ -77,19 +77,6 @@ Route::prefix('admin')->group(function () {
         return app(EducationController::class)->store(request());
     })->name('admin.education.store');
 
-    Route::get('/education/{id}/edit', function ($id) {
-        if (!session('admin_logged_in')) {
-            return redirect()->route('admin.login')->with('error', 'Please login to access admin area.');
-        }
-        return app(EducationController::class)->edit($id);
-    })->name('admin.education.edit');
-
-    Route::delete('/education/{id}/delete', function ($id) {
-        if (!session('admin_logged_in')) {
-            return redirect()->route('admin.login')->with('error', 'Please login to access admin area.');
-        }
-        return app(EducationController::class)->destroy($id);
-    })->name('admin.education.delete');
 
     Route::post('/skills/store', function () {
         if (!session('admin_logged_in')) {
@@ -131,8 +118,10 @@ Route::get('/projects', function () {
     return view('projects');
 })->name('projects');
 
+use App\Models\Skill;
 Route::get('/skills', function () {
-    return view('skills');
+    $skills = Skill::orderBy('proficiency', 'desc')->get();
+    return view('skills', compact('skills'));
 })->name('skills');
 
 

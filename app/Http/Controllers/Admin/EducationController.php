@@ -38,17 +38,4 @@ class EducationController extends Controller
         }
         return back()->with('success', 'Education entries updated successfully!');
     }
-    public function edit($id)
-    {
-        $education = \App\Models\Education::findOrFail($id);
-        $educations = \App\Models\Education::all();
-        return view('admin.education', compact('education', 'educations'));
-    }
-
-    public function destroy($id)
-    {
-        $education = \App\Models\Education::findOrFail($id);
-        $education->delete();
-        return back()->with('success', 'Education entry deleted successfully!');
-    }
 }
